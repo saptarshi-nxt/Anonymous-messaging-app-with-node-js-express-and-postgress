@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Inbox</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card dash-wide">
+    <div class="top-row">
+      <h1>Hey, <%= user.username %> 👋</h1>
+      <a href="/logout">Log out</a>
+    </div>
+
+    <p class="muted">Share this link — anyone can send you a message anonymously:</p>
+    <div class="link-box" id="linkBox"><%= baseUrl %>/u/<%= user.slug %></div>
+    <button onclick="copyLink()">Copy Link</button>
+
+    <h2 style="margin-top:28px;">Messages (<%= messages.length %>)</h2>
+    <% if (messages.length === 0) { %>
+      <p class="muted">No messages yet. Share your link to start receiving anonymous messages!</p>
+    <% } %>
+    <% messages.forEach(m => { %>
+      <div class="message">
+        <div><%= m.content %></div>
+        <span class="time"><%= new Date(m.created_at).toLocaleString() %></span>
+        <form method="POST" action="/messages/<%= m.id %>/delete" style="margin-top:6px;">
+          <button class="del-btn" type="submit">Delete</button>
+        </form>
+      </div>
+    <% }) %>
+  </div>
+
+  <script>
+    function copyLink() {
+      const text = document.getElementById('linkBox').innerText;
+      navigator.clipboard.writeText(text).then(() => alert('Link copied!'));
+    }
+  </script>
+  <script src="/rubberband.js"></script>
+</body>
+</html>

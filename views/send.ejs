@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send <%= user.username %> a message</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>📨 Send <strong><%= user.username %></strong> an anonymous message</h1>
+    <p class="muted">They won't know it's from you.</p>
+
+    <% if (sent) { %>
+      <p class="success">✅ Your message was sent anonymously!</p>
+      <button onclick="window.location.href = window.location.pathname">Send another</button>
+    <% } else { %>
+      <form method="POST" action="/u/<%= user.slug %>">
+        <textarea name="content" placeholder="Type your anonymous message..." required maxlength="1000"></textarea>
+        <button type="submit">Send Anonymously</button>
+      </form>
+    <% } %>
+
+    <p class="muted" style="margin-top:20px;">Want your own anonymous inbox? <a href="/signup">Create one free</a></p>
+  </div>
+  <script src="/rubberband.js"></script>
+</body>
+</html>

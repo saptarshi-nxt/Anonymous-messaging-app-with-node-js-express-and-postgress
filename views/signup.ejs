@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Create your anonymous inbox</h1>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form method="POST" action="/signup">
+      <input type="text" name="username" placeholder="Choose a username" required minlength="3" maxlength="30">
+      <input type="password" name="password" placeholder="Password (6+ characters)" required minlength="6">
+      <button type="submit">Sign Up</button>
+    </form>
+    <p class="muted">Already have an account? <a href="/login">Log in</a></p>
+  </div>
+  <script src="/rubberband.js"></script>
+</body>
+</html>
